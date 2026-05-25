@@ -2,9 +2,13 @@
 import { render } from 'solid-js/web';
 import 'solid-devtools';
 
-import App from './App';
+import Home from './Home';
+import { Route, Router } from '@solidjs/router';
 
 const root = document.getElementById('root');
+const body = <Router>
+  <Route path={"/"} component={Home} />
+</Router>
 
 if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
   throw new Error(
@@ -12,4 +16,4 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
   );
 }
 
-render(() => <App />, root);
+render(() => body, root);

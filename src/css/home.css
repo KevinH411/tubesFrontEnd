@@ -1,0 +1,158 @@
+#upper-home {
+    height: 100px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    padding: 0 40px 10px 40px;
+
+    border-bottom: 2px solid #2e2e2e;
+}
+
+#home-navigation {
+    display: flex;
+    gap: 30px;
+}
+
+#home-navigation p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+
+    color: #808080;
+
+    cursor: pointer;
+}
+
+#home-navigation p:first-child {
+    color: black;
+
+    text-decoration: underline;
+    text-underline-offset: 6px;
+}
+
+#upper-home a {
+    padding: 14px 24px;
+
+    border-radius: 8px;
+
+    background: linear-gradient(
+        90deg,
+        #F58A3A,
+        #B14DFF
+    );
+
+    color: white;
+    text-decoration: none;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+
+    box-shadow: 0 4px 10px rgba(245, 138, 58, 0.45);
+}
+
+#home-content {
+    width: 1400px;
+
+    display: flex;
+    flex-direction: column;
+
+    margin: 0 auto;
+
+    padding-top: 25px;
+}
+
+#search-input {
+    width: 420px;
+    height: 42px;
+
+    padding: 0 18px;
+
+    border: 1.5px solid #808080;
+    border-radius: 8px;
+
+    outline: none;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+#search-input::placeholder {
+    color: #808080;
+}
+
+#todo-table {
+    width: 1400px;
+
+    margin-top: 20px;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    border: 2px solid #2e2e2e;
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    font-family: 'Poppins', sans-serif;
+}
+
+#todo-table th {
+    height: 60px;
+
+    border-right: 2px solid #2e2e2e;
+    border-bottom: 2px solid #2e2e2e;
+
+    font-size: 18px;
+    font-weight: 700;
+}
+
+#todo-table th:last-child {
+    border-right: none;
+}
+
+#todo-table td {
+    height: 70px;
+
+    text-align: center;
+
+    border-right: 2px solid #2e2e2e;
+    border-bottom: 2px solid #2e2e2e;
+
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#todo-table td:last-child {
+    border-right: none;
+}
+
+#todo-table tr:last-child td {
+    border-bottom: none;
+}
+
+#todo-table button {
+    background: none;
+    border: none;
+
+    cursor: pointer;
+}
+
+#table-button {
+    width: 1400px;
+
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 15px;
+}
+
+#table-button button {
+    background: none;
+    border: none;
+
+    cursor: pointer;
+}
