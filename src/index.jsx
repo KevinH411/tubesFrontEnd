@@ -11,7 +11,7 @@ const root = document.getElementById('root');
 const body = <Router>
   <Route path={"/"} component={Home} />
   <Route path={"/Login"} component={Login} />
-  <Route path={"/SignUp"} component={SignUp} />
+  <Route path={"/SignUp"} component={SignUp} />  
 </Router>
 
 if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
