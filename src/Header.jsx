@@ -69,7 +69,7 @@ export default () => {
 
                 </div>
 
-                <A href="/login" id="header-right">
+                <A href="/Login" id="header-right">
 
                     <h1>Please log in first</h1>
 

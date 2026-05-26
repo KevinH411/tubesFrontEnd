@@ -35,95 +35,80 @@ export default () => {
 
     return (
         <>
-            <Header></Header>
-
-            <div id="upper-home">
-                <div id="home-navigation">
-                    <p>Table</p>
-                    <p>Calendar</p>
+            <main class="calendar-main">
+                <div class="calendar-header">
+                    <button class="nav-arrow left"></button>
+                    <h2 class="month-title">January 2026</h2>
+                    <button class="nav-arrow right"></button>
                 </div>
 
-                <A href="/create" class="add-task-btn">
-                    Add a new Task
-                </A>
-            </div>
-
-            <div id="home-content">
-                <main class="calendar-main">
-                    <div class="calendar-header">
-                        <button class="nav-arrow left"></button>
-                        <h2 class="month-title">January 2026</h2>
-                        <button class="nav-arrow right"></button>
+                <div class="calendar-grid-container">
+                    <div class="weekdays-row">
+                        <div class="weekday">Monday</div>
+                        <div class="weekday">Tuesday</div>
+                        <div class="weekday">Wednesday</div>
+                        <div class="weekday">Thursday</div>
+                        <div class="weekday">Friday</div>
+                        <div class="weekday">Saturday</div>
+                        <div class="weekday">Sunday</div>
                     </div>
 
-                    <div class="calendar-grid-container">
-                        <div class="weekdays-row">
-                            <div class="weekday">Monday</div>
-                            <div class="weekday">Tuesday</div>
-                            <div class="weekday">Wednesday</div>
-                            <div class="weekday">Thursday</div>
-                            <div class="weekday">Friday</div>
-                            <div class="weekday">Saturday</div>
-                            <div class="weekday">Sunday</div>
-                        </div>
+                    <div class="days-grid">
+                        <For each={calendarDays()}>
+                            {(day) => {
+                                const isCurrentMonth = isSameMonth(
+                                    day,
+                                    monthStart()
+                                );
 
-                        <div class="days-grid">
-                            <For each={calendarDays()}>
-                                {(day) => {
-                                    const isCurrentMonth = isSameMonth(
-                                        day,
-                                        monthStart()
-                                    );
+                                const dayString = format(day, "d");
 
-                                    const dayString = format(day, "d");
+                                const isActiveDay =
+                                    dayString === "1" && isCurrentMonth;
 
-                                    const isActiveDay =
-                                        dayString === "1" && isCurrentMonth;
+                                const hasTask =
+                                    ["1", "2", "3"].includes(dayString) &&
+                                    isCurrentMonth;
 
-                                    const hasTask =
-                                        ["1", "2", "3"].includes(dayString) &&
-                                        isCurrentMonth;
-
-                                    return (
-                                        <div
-                                            class="day-cell"
-                                            classList={{
-                                                active: isActiveDay,
-                                                "outside-month": !isCurrentMonth,
-                                            }}
-                                            style={{
-                                                opacity: (() => {
-                                                    if (isCurrentMonth) {
-                                                        return 1;
-                                                    } else {
-                                                        return 0.3;
-                                                    }
-                                                })(),
-                                            }}
+                                return (
+                                    <div
+                                        class="day-cell"
+                                        classList={{
+                                            active: isActiveDay,
+                                            "outside-month": !isCurrentMonth,
+                                        }}
+                                        style={{
+                                            opacity: (() => {
+                                                if (isCurrentMonth) {
+                                                    return 1;
+                                                } else {
+                                                    return 0.3;
+                                                }
+                                            })(),
+                                        }}
+                                    >
+                                        <span
+                                            class={`day-number ${(() => {
+                                                if (Number(dayString) > 3) {
+                                                    return "inactive-text";
+                                                } else {
+                                                    return "active-text";
+                                                }
+                                            })()}`}
                                         >
-                                            <span
-                                                class={`day-number ${(() => {
-                                                    if (Number(dayString) > 3) {
-                                                        return "inactive-text";
-                                                    } else {
-                                                        return "active-text";
-                                                    }
-                                                })()}`}
-                                            >
-                                                {dayString}
-                                            </span>
+                                            {dayString}
+                                        </span>
 
-                                            {hasTask && (
-                                                <div class="task-dot"></div>
-                                            )}
-                                        </div>
-                                    );
-                                }}
-                            </For>
-                        </div>
+                                        {hasTask && (
+                                            <div class="task-dot"></div>
+                                        )}
+                                    </div>
+                                );
+                            }}
+                        </For>
                     </div>
-                </main>
-            </div>
+                </div>
+            </main>
         </>
     );
 };
