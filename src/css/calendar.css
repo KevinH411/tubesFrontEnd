@@ -1,0 +1,132 @@
+/* --- Navigation Adjustments --- */
+#home-navigation .nav-link {
+    text-decoration: none;
+    color: #888;
+    cursor: pointer;
+}
+
+#home-navigation .active-tab {
+    font-weight: 700;
+    color: #1a1a1a;
+    border-bottom: 2px solid #1a1a1a;
+    cursor: default;
+}
+
+.add-task-btn {
+    background: linear-gradient(135deg, #f27a7a, #d368b6);
+    color: white;
+    text-decoration: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+/* --- Calendar Container --- */
+.calendar-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+    padding: 0 48px 24px;
+}
+
+.month-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.nav-arrow {
+    width: 0; 
+    height: 0; 
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    background: none;
+    cursor: pointer;
+}
+
+.nav-arrow.left {
+    border-right: 18px solid #333;
+    border-left: none;
+}
+
+.nav-arrow.right {
+    border-left: 18px solid #333;
+    border-right: none;
+}
+
+/* --- Calendar Grid Layout --- */
+.calendar-grid-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.weekdays-row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.weekday {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #1a1a1a;
+}
+
+.days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: minmax(100px, 1fr);
+    border-top: 1px solid #777;
+    border-left: 1px solid #777;
+}
+
+.day-cell {
+    border-right: 1px solid #777;
+    border-bottom: 1px solid #777;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: white;
+}
+
+.day-cell.active {
+    background: linear-gradient(135deg, #e47c7c, #c05cba);
+    color: #1a1a1a;
+}
+
+.day-number {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.active-text {
+    color: #1a1a1a;
+}
+
+.inactive-text {
+    color: #9e9e9e;
+    font-weight: 600;
+}
+
+.task-dot {
+    width: 14px;
+    height: 14px;
+    background-color: #333;
+    border-radius: 50%;
+}
