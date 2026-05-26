@@ -5,6 +5,7 @@ import 'solid-devtools';
 import Home from './Home';
 import Login from './Login';
 import SignUp from './SignUp';
+import Create from './Create';
 import { Route, Router } from '@solidjs/router';
 
 const root = document.getElementById('root');
@@ -12,6 +13,7 @@ const body = <Router>
   <Route path={"/"} component={Home} />
   <Route path={"/Login"} component={Login} />
   <Route path={"/SignUp"} component={SignUp} />  
+  <Route path={"/Create"} component={Create} />
 </Router>
 
 if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
