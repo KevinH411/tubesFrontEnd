@@ -1,6 +1,7 @@
 import Header from "./Header";
 import { useNavigate, A } from '@solidjs/router';
 import "./css/Login.css";
+import { findUserByEmail } from "../backend/Database";
 
 function Login() {
   const navigate = useNavigate();

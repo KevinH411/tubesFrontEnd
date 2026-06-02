@@ -1,6 +1,4 @@
 import { createSignal, createMemo, For } from "solid-js";
-import { A } from "@solidjs/router";
-import Header from "./Header";
 import "./css/calendar.css";
 import {
     startOfMonth,

@@ -1,0 +1,16 @@
+[
+  {
+    "taskId": 1,
+    "userId": 1,
+    "title": "Finish frontend assignment",
+    "description": "Implement login page",
+    "dueDate": "2026-06-10T23:59:59Z"
+  },
+  {
+    "taskId": 2,
+    "userId": 1,
+    "title": "Buy groceries",
+    "description": "Milk, eggs, bread",
+    "dueDate": "2026-06-05T18:00:00Z"
+  }
+]

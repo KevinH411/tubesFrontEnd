@@ -2,10 +2,10 @@
 import { render } from 'solid-js/web';
 import 'solid-devtools';
 
-import Home from './Home';
-import Login from './Login';
-import SignUp from './SignUp';
-import Create from './Create';
+import Home from './frontend/Home';
+import Login from './frontend/Login';
+import SignUp from './frontend/SignUp';
+import Create from './frontend/Create';
 import { Route, Router } from '@solidjs/router';
 
 const root = document.getElementById('root');
