@@ -1,7 +1,9 @@
+import {createSignal, createEffect, Show, For} from "solid-js";
+import { A, useLocation, useNavigate } from "@solidjs/router";
 import Header from "./Header";
-import { A, useLocation } from "@solidjs/router";
 import "./css/home.css";
 import Calendar from "./Calendar";
+import { getTodoList } from "../backend/Database.jsx";
 
 const TrashIcon = () => (
     <svg
@@ -17,14 +19,12 @@ const TrashIcon = () => (
             stroke-width="2"
             stroke-linecap="round"
         />
-
         <path
             d="M9 7V5C9 4.4 9.4 4 10 4H14C14.6 4 15 4.4 15 5V7"
             stroke="#333"
             stroke-width="2"
             stroke-linecap="round"
         />
-
         <rect
             x="6"
             y="7"
@@ -37,7 +37,12 @@ const TrashIcon = () => (
     </svg>
 );
 
-function TableContent() {
+function TableContent(props) {
+    
+    const handleDelete = (taskId) => {
+        setTasks(tasks().filter(task => task.taskId !== taskId));
+    };
+
     return (
         <>
             <div id="search-container">
@@ -57,57 +62,31 @@ function TableContent() {
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Kerjain tugas</td>
-                            <td>PTO-Tugas Besar</td>
-                            <td>1-Jan-2026</td>
+                        <For each={props.tasks} fallback={
+                            <tr>
+                                <td colspan="5" style={{ "text-align": "center" }}>No tasks found. Add a new one!</td>
+                            </tr>
+                        }>
+                            {(task, index) => {
+                                const formattedDate = task.dueDate 
+                                    ? task.dueDate.split("T")[0] 
+                                    : "No Deadline";
 
-                            <td>
-                                <button>
-                                    <TrashIcon />
-                                </button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>2</td>
-                            <td>Kerjain tugas</td>
-                            <td>ML-T09</td>
-                            <td>1-Jan-2026</td>
-
-                            <td>
-                                <button>
-                                    <TrashIcon />
-                                </button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>3</td>
-                            <td>Kerjain tugas</td>
-                            <td>Go-M09</td>
-                            <td>2-Jan-2026</td>
-
-                            <td>
-                                <button>
-                                    <TrashIcon />
-                                </button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>4</td>
-                            <td>Kerjain tugas</td>
-                            <td>Geometri-T1</td>
-                            <td>3-Jan-2026</td>
-
-                            <td>
-                                <button>
-                                    <TrashIcon />
-                                </button>
-                            </td>
-                        </tr>
+                                return (
+                                    <tr>
+                                        <td>{index() + 1}</td>
+                                        <td>{task.title}</td>
+                                        <td>{task.description}</td>
+                                        <td>{formattedDate}</td>
+                                        <td>
+                                            <button onClick={() => handleDelete(task.taskId)}>
+                                                <TrashIcon />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                );
+                            }}
+                        </For>
                     </tbody>
                 </table>
             </div>
@@ -120,10 +99,7 @@ function TableContent() {
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
                     >
-                        <path
-                            d="M18 4 L6 12 L18 20 Z"
-                            fill="black"
-                        />
+                        <path d="M18 4 L6 12 L18 20 Z" fill="black" />
                     </svg>
                 </button>
 
@@ -134,23 +110,39 @@ function TableContent() {
                         viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg"
                     >
-                        <path
-                            d="M6 4 L18 12 L6 20 Z"
-                            fill="black"
-                        />
+                        <path d="M6 4 L18 12 L6 20 Z" fill="black" />
                     </svg>
                 </button>
             </div>
         </>
-    )
+    );
 }
 
 export default () => {
     const location = useLocation();
+    const navigate = useNavigate();
+
+    const [user, setUser] = createSignal(null);
+    const [tasks, setTasks] = createSignal([]);
+
+    createEffect(() => {
+        const storedUser = localStorage.getItem("currentUser");
+
+        if (storedUser) {
+            const parsedUser = JSON.parse(storedUser);
+            setUser(parsedUser);
+
+            const userTasks = getTodoList(parsedUser.id);
+            setTasks(userTasks || []);
+        } else {
+
+            navigate("/Login", { replace: true });
+        }
+    });
 
     return (
-        <>
-            <Header></Header>
+        <Show when={user()}>
+            <Header />
             <div id="upper-home">
                 <div id="home-navigation">
                     <A href="/">Table</A>
@@ -162,13 +154,14 @@ export default () => {
 
             <div id="home-content">
                 <Show when={location.pathname === "/"}>
-                    <TableContent />
+
+                    <TableContent tasks={tasks()} />
                 </Show>
 
                 <Show when={location.pathname === "/Calendar"}>
                     <Calendar />
                 </Show>
             </div>
-        </>
+        </Show>
     );
 };
