@@ -11,11 +11,11 @@ export default () => {
         setUser(JSON.parse(storedUser));
     }
 
-     const handleLogout = () => {
-            localStorage.removeItem("currentUser");
-            setUser(null);
-            navigate("/Login", {replace: true});
-        }
+    const handleLogout = () => {
+        localStorage.removeItem("currentUser");
+        setUser(null);
+        navigate("/Login", { replace: true });
+    }
 
     return (
         <>
@@ -128,45 +128,41 @@ export default () => {
                         </A>
                     }
                 >
-                    <div 
-                        id="header-right" 
-                        onClick={handleLogout} 
-                        style={{ cursor: "pointer" }}
-                        role="button"
-                        tabIndex={0}
-                    >
-                        <h1>Logout</h1>
+                    <div id="header-right" >
+                        <h1>Welcome, {user().username}</h1>
                         <svg
-                            class="profile-svg"
-                            viewBox="0 0 256 256"
+                            class="logout-svg"
+                            viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
+                            onClick={handleLogout}
+                            style={{ cursor: "pointer" }}
                         >
-                            <circle
-                                cx="128"
-                                cy="128"
-                                r="92"
-                                fill="#F58220"
-                            />
-                            <circle
-                                cx="128"
-                                cy="108"
-                                r="12"
-                                fill="none"
-                                stroke="white"
-                                stroke-width="6"
-                            />
                             <path
-                                d="M98 158
-                                L98 146
-                                Q98 132 112 132
-                                L144 132
-                                Q158 132 158 146
-                                L158 158"
+                                d="M10 3H5C4.45 3 4 3.45 4 4V20C4 20.55 4.45 21 5 21H10"
                                 fill="none"
-                                stroke="white"
-                                stroke-width="6"
+                                stroke="black"
+                                stroke-width="2"
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
+                            />
+
+                            <path
+                                d="M14 7L20 12L14 17"
+                                fill="none"
+                                stroke="black"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+
+                            <line
+                                x1="20"
+                                y1="12"
+                                x2="9"
+                                y2="12"
+                                stroke="black"
+                                stroke-width="2"
+                                stroke-linecap="round"
                             />
                         </svg>
                     </div>

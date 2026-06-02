@@ -55,3 +55,8 @@ header {
     height: 100%;
     width: auto;
 }
+
+.logout-svg{
+    width: auto;
+    height: 60%;
+}
