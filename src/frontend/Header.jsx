@@ -1,7 +1,22 @@
-import { A } from "@solidjs/router";
+import { A, useNavigate } from "@solidjs/router";
 import "./css/header.css";
+import { createSignal, createEffect, Show } from "solid-js";
 
 export default () => {
+    const navigate = useNavigate();
+    const [user, setUser] = createSignal(null);
+    const storedUser = localStorage.getItem("currentUser");
+
+    if (storedUser) {
+        setUser(JSON.parse(storedUser));
+    }
+
+     const handleLogout = () => {
+            localStorage.removeItem("currentUser");
+            setUser(null);
+            navigate("/Login", {replace: true});
+        }
+
     return (
         <>
             <header>
@@ -68,48 +83,94 @@ export default () => {
                     <h1>To-Do Online</h1>
 
                 </div>
+                <Show
+                    when={user()}
+                    fallback={
+                        <A href="/Login" id="header-right">
 
-                <A href="/Login" id="header-right">
+                            <h1>Please log in first</h1>
 
-                    <h1>Please log in first</h1>
+                            <svg
+                                class="profile-svg"
+                                viewBox="0 0 256 256"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <circle
+                                    cx="128"
+                                    cy="128"
+                                    r="92"
+                                    fill="#F58220"
+                                />
 
-                    <svg
-                        class="profile-svg"
-                        viewBox="0 0 256 256"
-                        xmlns="http://www.w3.org/2000/svg"
+                                <circle
+                                    cx="128"
+                                    cy="108"
+                                    r="12"
+                                    fill="none"
+                                    stroke="white"
+                                    stroke-width="6"
+                                />
+
+                                <path
+                                    d="M98 158
+                                    L98 146
+                                    Q98 132 112 132
+                                    L144 132
+                                    Q158 132 158 146
+                                    L158 158"
+                                    fill="none"
+                                    stroke="white"
+                                    stroke-width="6"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                        </A>
+                    }
+                >
+                    <div 
+                        id="header-right" 
+                        onClick={handleLogout} 
+                        style={{ cursor: "pointer" }}
+                        role="button"
+                        tabIndex={0}
                     >
-                        <circle
-                            cx="128"
-                            cy="128"
-                            r="92"
-                            fill="#F58220"
-                        />
-
-                        <circle
-                            cx="128"
-                            cy="108"
-                            r="12"
-                            fill="none"
-                            stroke="white"
-                            stroke-width="6"
-                        />
-
-                        <path
-                            d="M98 158
-                            L98 146
-                            Q98 132 112 132
-                            L144 132
-                            Q158 132 158 146
-                            L158 158"
-                            fill="none"
-                            stroke="white"
-                            stroke-width="6"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        />
-                    </svg>
-
-                </A>
+                        <h1>Logout</h1>
+                        <svg
+                            class="profile-svg"
+                            viewBox="0 0 256 256"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <circle
+                                cx="128"
+                                cy="128"
+                                r="92"
+                                fill="#F58220"
+                            />
+                            <circle
+                                cx="128"
+                                cy="108"
+                                r="12"
+                                fill="none"
+                                stroke="white"
+                                stroke-width="6"
+                            />
+                            <path
+                                d="M98 158
+                                L98 146
+                                Q98 132 112 132
+                                L144 132
+                                Q158 132 158 146
+                                L158 158"
+                                fill="none"
+                                stroke="white"
+                                stroke-width="6"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
+                    </div>
+                </Show>
 
             </header>
         </>
