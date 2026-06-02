@@ -1,5 +1,5 @@
 import Header from "./Header";
-import { A } from "@solidjs/router";
+import { A, useNavigate } from "@solidjs/router";
 import "./css/create.css";
 
 export default function Create() { //:P
