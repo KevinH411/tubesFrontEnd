@@ -92,11 +92,17 @@
     grid-auto-rows: minmax(100px, 1fr);
     border-top: 1px solid #777;
     border-left: 1px solid #777;
+    border-right: 1px solid #777;
+    border-bottom: 1px solid #777;
+    box-sizing: border-box;
 }
 
 .day-cell {
+    border-top: 1px solid #777;
+    border-left: 1px solid #777;
     border-right: 1px solid #777;
     border-bottom: 1px solid #777;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
