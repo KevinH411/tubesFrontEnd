@@ -27,8 +27,23 @@ function getTodoList(id) {
     return todos.filter(todo => todo.userId === id);
 }
 
+function addUser(username, email, password){
+    let newId = users.length + 1;
+    let newUser = {
+        id: newId,
+        username: username,
+        email: email,
+        password: password
+    };
+
+    users.push(newUser);
+    console.log("Database updated: ", users);
+    return true;
+}
+
 export {
     findUserByEmail,
     findUserByName,
-    getTodoList
+    getTodoList,
+    addUser
 };
