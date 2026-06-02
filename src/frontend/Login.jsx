@@ -2,13 +2,31 @@ import Header from "./Header";
 import { useNavigate, A } from '@solidjs/router';
 import "./css/Login.css";
 import { findUserByEmail } from "../backend/Database";
+import { createSignal } from "solid-js";
 
 function Login() {
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  //mengambil nilai input di SolidJS
+  const [email, setEmail] = createSignal("");
+  const [password, setPassword] = createSignal("");
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    navigate('/'); 
+
+    //mencari user berdasarkan email
+    const user = await findUserByEmail(email());
+
+    //memeriksa apakah user dan password cocok
+    if(user && user.password === password()){
+      //simpan data user login ke localStorage
+      localStorage.setItem("currentUser", JSON.stringify(user));
+      navigate('/');
+    }
+    else{
+      //tampilkan error jika salah
+      alert("Email atau password salah!");
+    }
   };
 
   return (
@@ -30,7 +48,8 @@ function Login() {
 
             <input 
               type="email" 
-              id="email" 
+              onInput={(e) => setEmail(e.target.value)}
+              value={email()}
               placeholder="nama@email.com" 
               required 
             />
@@ -41,7 +60,8 @@ function Login() {
 
             <input 
               type="password" 
-              id="password" 
+              onInput={(e) => setPassword(e.target.value)}
+              value={password()} 
               placeholder="********" 
               required 
             />
