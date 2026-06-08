@@ -1,42 +1,42 @@
 import Header from "./Header";
 import { A, useNavigate } from '@solidjs/router';
-import { findUserByEmail, findUserByName, addUser } from "../backend/Database";
+// import { findUserByEmail, findUserByName, addUser } from "./Database";
 //untuk cek jika username atau email sudah ada di database
 import './css/Login.css'; // Kita gunakan CSS yang sama dengan login agar cepat
 
 function SignUp() {
-  const navigate = useNavigate();
+//   const navigate = useNavigate();
 
-  const handleSignUp = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const inputUsername = formData.get("username").trim();
-    const inputEmail = formData.get("email").trim();
-    const inputPassword = formData.get("password");
+//   const handleSignUp = (e) => {
+//     e.preventDefault();
+//     const formData = new FormData(e.target);
+//     const inputUsername = formData.get("username").trim();
+//     const inputEmail = formData.get("email").trim();
+//     const inputPassword = formData.get("password");
     
-    if (inputUsername === "" || inputEmail === "" || inputPassword === "") {
-        alert("Belum ada data yang dimasukkan.");
-        return;
-    }
+//     if (inputUsername === "" || inputEmail === "" || inputPassword === "") {
+//         alert("Belum ada data yang dimasukkan.");
+//         return;
+//     }
 
-    let checkName = findUserByName(inputUsername);
-    if (checkName !== null) {
-        alert("Username sudah digunakan! Gunakan username lain.");
-        return;
-    }
+//     let checkName = findUserByName(inputUsername);
+//     if (checkName !== null) {
+//         alert("Username sudah digunakan! Gunakan username lain.");
+//         return;
+//     }
 
-    let checkEmail = findUserByEmail(inputEmail);
-    if (checkEmail !== null) {
-        alert("Email sudah terdaftar! Gunakan email lain.");
-        return;
-    }
+//     let checkEmail = findUserByEmail(inputEmail);
+//     if (checkEmail !== null) {
+//         alert("Email sudah terdaftar! Gunakan email lain.");
+//         return;
+//     }
 
-    let success = addUser(inputUsername, inputEmail, inputPassword);
-    if(success) {
-        alert("Akun berhasil dibuat!");
-        navigate('/login'); // Setelah daftar, diarahkan ke login
-    }
-  };
+//     let success = addUser(inputUsername, inputEmail, inputPassword);
+//     if(success) {
+//         alert("Akun berhasil dibuat!");
+//         navigate('/login'); // Setelah daftar, diarahkan ke login
+//     }
+//   };
 
   return (
     <>

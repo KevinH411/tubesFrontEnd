@@ -1,7 +1,6 @@
-import { createSignal, createMemo, For, createEffect, Show } from "solid-js";
+import { createSignal, createMemo, For, createEffect, Show, onMount } from "solid-js";
 import { useNavigate } from "@solidjs/router";
 import "./css/calendar.css";
-import { getTodoList } from "../backend/Database.jsx";
 import {
     startOfMonth,
     endOfMonth,
@@ -14,6 +13,7 @@ import {
     subMonths,
     isToday
 } from "date-fns";
+import { getTodoList } from "./Database";
 
 export default () => {
     const navigate = useNavigate();
@@ -21,15 +21,24 @@ export default () => {
     const [user, setUser] = createSignal(null);
     const [tasks, setTasks] = createSignal([]);
 
-    createEffect(() => {
+    onMount(async () => {
         const storedUser = localStorage.getItem("currentUser");
 
         if (storedUser) {
             const parsedUser = JSON.parse(storedUser);
             setUser(parsedUser);
 
-            const userTasks = getTodoList(parsedUser.id);
-            setTasks(userTasks);
+            const loadTask = async () => {
+                try {
+                    const userTasks = await getTodoList(parsedUser.id);
+                    setTasks(userTasks || []);
+
+                    setCurrentDate(d => new Date(d));
+                } catch (err) {
+                    alert(err.message);
+                }
+            }
+            loadTask();
         } else {
             navigate("/Login", { replace: true });
         }
@@ -88,7 +97,7 @@ export default () => {
 
                                 const dayString = format(day, "d");
 
-                                const isActiveDay =isToday(day);
+                                const isActiveDay = isToday(day);
 
                                 const currentFormattedDate = format(day, "yyyy-MM-dd");
 

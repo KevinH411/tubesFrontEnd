@@ -1,9 +1,9 @@
-import {createSignal, createEffect, Show, For} from "solid-js";
+import { createSignal, createEffect, Show, For, onMount } from "solid-js";
 import { A, useLocation, useNavigate } from "@solidjs/router";
 import Header from "./Header";
 import "./css/home.css";
 import Calendar from "./Calendar";
-import { getTodoList } from "../backend/Database.jsx";
+import { getTodoList } from "./Database";
 
 const TrashIcon = () => (
     <svg
@@ -38,7 +38,7 @@ const TrashIcon = () => (
 );
 
 function TableContent(props) {
-    
+
     const handleDelete = (taskId) => {
         setTasks(tasks().filter(task => task.taskId !== taskId));
     };
@@ -68,8 +68,8 @@ function TableContent(props) {
                             </tr>
                         }>
                             {(task, index) => {
-                                const formattedDate = task.dueDate 
-                                    ? task.dueDate.split("T")[0] 
+                                const formattedDate = task.dueDate
+                                    ? task.dueDate.split("T")[0]
                                     : "No Deadline";
 
                                 return (
@@ -125,15 +125,23 @@ export default () => {
     const [user, setUser] = createSignal(null);
     const [tasks, setTasks] = createSignal([]);
 
-    createEffect(() => {
+    onMount(async () => {
         const storedUser = localStorage.getItem("currentUser");
 
         if (storedUser) {
             const parsedUser = JSON.parse(storedUser);
             setUser(parsedUser);
 
-            const userTasks = getTodoList(parsedUser.id);
-            setTasks(userTasks || []);
+            const loadTask = async () => {
+                try {
+                    const userTasks = await getTodoList(parsedUser.id);
+                    setTasks(userTasks || []);
+                } catch (err) {
+                    alert(err.message);
+                }
+            }
+            loadTask();
+
         } else {
 
             navigate("/Login", { replace: true });

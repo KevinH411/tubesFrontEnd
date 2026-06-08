@@ -1,7 +1,7 @@
 import Header from "./Header";
 import { useNavigate, A } from '@solidjs/router';
 import "./css/Login.css";
-import { findUserByEmail } from "../backend/Database";
+import { login } from "./Database";
 import { createSignal } from "solid-js";
 
 function Login() {
@@ -14,67 +14,63 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    //mencari user berdasarkan email
-    const user = await findUserByEmail(email());
+    try {
+      //mencari user berdasarkan email
+      const res = await login(email(), password());
 
-    //memeriksa apakah user dan password cocok
-    if(user && user.password === password()){
-      //simpan data user login ke localStorage
-      localStorage.setItem("currentUser", JSON.stringify(user));
-      navigate('/');
-    }
-    else{
-      //tampilkan error jika salah
-      alert("Email atau password salah!");
+      localStorage.setItem("currentUser", JSON.stringify(res))
+      navigate("/")
+    } catch (err) {
+      alert(err.message);
     }
   };
 
   return (
-  <>
-    <Header></Header>
+    <>
+      <Header></Header>
 
-    <div class="login-wrapper">
-      <h1 class="app-title">To-Do Online</h1>
+      <div class="login-wrapper">
+        <h1 class="app-title">To-Do Online</h1>
 
-      <div class="auth-container">
-        <div class="tabs">
-          <div class="tab active">Login</div>
-          <A href="/signup" class="tab inactive">Sign Up</A>
+        <div class="auth-container">
+          <div class="tabs">
+            <div class="tab active">Login</div>
+            <A href="/signup" class="tab inactive">Sign Up</A>
+          </div>
+
+          <form class="login-form" onSubmit={handleLogin}>
+            <div class="input-group">
+              <label for="email">Email</label>
+
+              <input
+                type="email"
+                onInput={(e) => setEmail(e.target.value)}
+                value={email()}
+                placeholder="nama@email.com"
+                required
+              />
+            </div>
+
+            <div class="input-group">
+              <label for="password">Password</label>
+
+              <input
+                type="password"
+                onInput={(e) => setPassword(e.target.value)}
+                value={password()}
+                placeholder="********"
+                required
+              />
+            </div>
+
+            <button type="submit" class="login-btn">
+              Login
+            </button>
+          </form>
         </div>
-
-        <form class="login-form" onSubmit={handleLogin}>
-          <div class="input-group">
-            <label for="email">Email</label>
-
-            <input 
-              type="email" 
-              onInput={(e) => setEmail(e.target.value)}
-              value={email()}
-              placeholder="nama@email.com" 
-              required 
-            />
-          </div>
-
-          <div class="input-group">
-            <label for="password">Password</label>
-
-            <input 
-              type="password" 
-              onInput={(e) => setPassword(e.target.value)}
-              value={password()} 
-              placeholder="********" 
-              required 
-            />
-          </div>
-
-          <button type="submit" class="login-btn">
-            Login
-          </button>
-        </form>
       </div>
-    </div>
-  </>
-);
+    </>
+  );
 }
 
 export default Login;
