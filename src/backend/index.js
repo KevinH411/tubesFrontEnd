@@ -32,6 +32,31 @@ app.post("/api/login", (req, res) => {
     });
 });
 
+app.post("/api/signup", (req, res) => {
+    const { username, email, password } = req.body;
+    if (users.some(u => u.username === username)) {
+        return res.status(400).json({ message: "Username already exists" });
+    }
+
+    if (users.some(u => u.email === email)) {
+        return res.status(400).json({ message: "Email already exists" });
+    }
+
+    const newUser = { id: users.length + 1, username, email, password };
+    users.push(newUser);
+    fs.writeFileSync(path.resolve(__dirname, 'users.json'), JSON.stringify(users));
+
+    return res.status(201).json({ message: "User created successfully" });
+});
+
+app.post("/api/todo", (req, res) => {
+    const {title, description, dueDate} = req.body;
+    const newTodo = { id: todos.length + 1, id: users.length+1, title, description, dueDate };
+    todos.push(newTodo);
+    fs.writeFileSync(path.resolve(__dirname, 'todo.json'), JSON.stringify(todos));
+    return res.status(201).json({ message: "Todo created successfully" });
+});
+
 app.get("/api/todo/:id", (req, res) => {
     const id = Number(req.params.id);
 
@@ -40,6 +65,6 @@ app.get("/api/todo/:id", (req, res) => {
     return res.json(userTodo)
 });
 
-app.listen(8080, () => {
+app.listen(8081, () => {
     console.log('Listening...');
 });
