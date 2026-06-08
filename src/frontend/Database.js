@@ -1,4 +1,4 @@
-const URL = "http://localhost:8081/api";
+const URL = "http://localhost:8080/api";
 
 export async function login(email, password) {
     const res = await fetch(`${URL}/login`, {
