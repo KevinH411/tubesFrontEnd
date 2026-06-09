@@ -44,8 +44,8 @@
 }
 
 .nav-arrow {
-    width: 0; 
-    height: 0; 
+    width: 0;
+    height: 0;
     border-top: 12px solid transparent;
     border-bottom: 12px solid transparent;
     background: none;
@@ -222,6 +222,13 @@
 }
 
 @keyframes popupFadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

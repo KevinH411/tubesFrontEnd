@@ -11,11 +11,9 @@
 }
 
 .app-title {
-  background: linear-gradient(
-    90deg,
-    #F58A3A,
-    #B14DFF
-  );
+  background: linear-gradient(90deg,
+      #F58A3A,
+      #B14DFF);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -53,7 +51,7 @@
   background-color: #ffffff;
   color: #333;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .tab.inactive {
@@ -100,11 +98,9 @@
   font-weight: bold;
   font-size: 16px;
   cursor: pointer;
-  background: linear-gradient(
-    90deg,
-    #F58A3A,
-    #B14DFF
-  );
+  background: linear-gradient(90deg,
+      #F58A3A,
+      #B14DFF);
   box-shadow: 0px 4px 10px #F58A3A;
   transition: all 0.3s ease;
 }

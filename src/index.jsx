@@ -12,10 +12,8 @@ const root = document.getElementById('root');
 const body = <Router>
   <Route path={"/"} component={Home} />
   <Route path={"/Login"} component={Login} />
-  <Route path={"/SignUp"} component={SignUp} />  
+  <Route path={"/SignUp"} component={SignUp} />
   <Route path={"/Create"} component={Create} />
-
-  {/* nanti ini bisa di remove */}
   <Route path={"/Calendar"} component={Home} />
 </Router>
 

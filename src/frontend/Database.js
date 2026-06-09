@@ -21,13 +21,13 @@ export async function signup(username, email, password) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, email, password })
     });
-        if (!res.ok) {
+    if (!res.ok) {
         const err = await res.json();
         throw new Error(err.message);
     }
 
-     return await res.json();
-    
+    return await res.json();
+
 }
 
 export async function getTodoList(id) {
@@ -44,12 +44,12 @@ export async function addTodo(userId, title, description, dueDate) {
     const res = await fetch(`${URL}/todo`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({userId, title, description, dueDate })
+        body: JSON.stringify({ userId, title, description, dueDate })
     });
-        if (!res.ok) {
-            throw new Error("Failed adding todo");
-        }
-        return await res.json();
+    if (!res.ok) {
+        throw new Error("Failed adding todo");
+    }
+    return await res.json();
 }
 
 export async function deleteTodo(id) { //fungsi untuk hapus ToDo

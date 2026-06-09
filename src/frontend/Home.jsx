@@ -1,4 +1,4 @@
-import { createSignal, createEffect, Show, For, onMount } from "solid-js";
+import { createSignal, Show, For, onMount } from "solid-js";
 import { A, useLocation, useNavigate } from "@solidjs/router";
 import Header from "./Header";
 import "./css/home.css";
@@ -183,8 +183,8 @@ export default () => {
             <Header />
             <div id="upper-home">
                 <div id="home-navigation">
-                    <A href="/" classList={{activated: location.pathname === "/"}}>Table</A>
-                    <A href="/Calendar" classList={{activated: location.pathname === "/Calendar"}}>Calendar</A>
+                    <A href="/" classList={{ activated: location.pathname === "/" }}>Table</A>
+                    <A href="/Calendar" classList={{ activated: location.pathname === "/Calendar" }}>Calendar</A>
                 </div>
 
                 <A id="create-button" href='/Create'>Add a new Task</A>

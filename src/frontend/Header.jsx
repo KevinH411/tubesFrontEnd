@@ -1,6 +1,6 @@
 import { A, useNavigate } from "@solidjs/router";
 import "./css/header.css";
-import { createSignal, createEffect, Show } from "solid-js";
+import { createSignal, Show } from "solid-js";
 
 export default () => {
     const navigate = useNavigate();

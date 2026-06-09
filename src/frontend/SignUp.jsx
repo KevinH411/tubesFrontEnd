@@ -6,12 +6,12 @@ import { createSignal } from "solid-js";
 
 function SignUp() {
     const navigate = useNavigate();
-  //mengambil nilai input di SolidJS
-  const [username, setUsername] = createSignal("");
-  const [email, setEmail] = createSignal("");
-  const [password, setPassword] = createSignal("");
+    //mengambil nilai input di SolidJS
+    const [username, setUsername] = createSignal("");
+    const [email, setEmail] = createSignal("");
+    const [password, setPassword] = createSignal("");
 
-     const handleSignUp = async (e) => {
+    const handleSignUp = async (e) => {
         e.preventDefault();
         try {
             await signup(username(), email(), password());
@@ -19,24 +19,24 @@ function SignUp() {
         } catch (err) {
             alert(err.message);
         }
-     }
+    }
 
-  return (
-    <>
-        <Header></Header>
+    return (
+        <>
+            <Header></Header>
 
-        <div class="login-wrapper">
-            <h1 class="app-title">To-Do Online</h1>
+            <div class="login-wrapper">
+                <h1 class="app-title">To-Do Online</h1>
 
-            <div class="auth-container">
-                <div class="tabs">
-                    <A href="/login" class="tab inactive">Login</A>
-                    <div class="tab active">Sign Up</div>
-                </div>
+                <div class="auth-container">
+                    <div class="tabs">
+                        <A href="/login" class="tab inactive">Login</A>
+                        <div class="tab active">Sign Up</div>
+                    </div>
 
-                <form class="login-form" onSubmit={handleSignUp}>
-                    <div class="input-group">
-                        <label for="username">Username</label>
+                    <form class="login-form" onSubmit={handleSignUp}>
+                        <div class="input-group">
+                            <label for="username">Username</label>
                             <input
                                 type="username"
                                 onInput={(e) => setUsername(e.target.value)}
@@ -44,9 +44,9 @@ function SignUp() {
                                 placeholder="your username"
                                 required
                             />
-                    </div>
-                    <div class="input-group">
-                        <label for="email">Email</label>
+                        </div>
+                        <div class="input-group">
+                            <label for="email">Email</label>
                             <input
                                 type="email"
                                 onInput={(e) => setEmail(e.target.value)}
@@ -54,9 +54,9 @@ function SignUp() {
                                 placeholder="nama@email.com"
                                 required
                             />
-                    </div>
-                    <div class="input-group">
-                        <label for="password">Password</label>
+                        </div>
+                        <div class="input-group">
+                            <label for="password">Password</label>
                             <input
                                 type="password"
                                 onInput={(e) => setPassword(e.target.value)}
@@ -64,14 +64,14 @@ function SignUp() {
                                 placeholder="********"
                                 required
                             />
-                    </div>
+                        </div>
 
-                    <button type="submit" class="login-btn">Daftar</button>
-                </form>
+                        <button type="submit" class="login-btn">Daftar</button>
+                    </form>
+                </div>
             </div>
-        </div>
-    </>
-  );
+        </>
+    );
 }
 
 export default SignUp;

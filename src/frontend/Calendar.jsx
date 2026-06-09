@@ -1,4 +1,4 @@
-import { createSignal, createMemo, For, createEffect, Show, onMount } from "solid-js";
+import { createSignal, createMemo, For, Show, onMount } from "solid-js";
 import { useNavigate } from "@solidjs/router";
 import "./css/calendar.css";
 import {
@@ -162,7 +162,7 @@ export default () => {
                                 <h3>Deadline: {popupDate()}</h3>
                                 <button class="close-icon" onClick={() => setIsPopupOpen(false)}>&times;</button>
                             </div>
-                            
+
                             <div class="popup-task-list">
                                 <For each={selectedTasks()}>
                                     {(t) => (
