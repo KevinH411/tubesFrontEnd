@@ -39,17 +39,32 @@ const TrashIcon = () => (
 
 function TableContent(props) {
     const [page, setPage] = createSignal(1);
-    const maxPage = () => Math.max(1, Math.ceil(props.tasks.length / 5));
+    const [search, setSearch] = createSignal("");
+    const filteredTasks = () => {
+        return props.tasks.filter(task =>
+            task.title.toLowerCase().includes(search().toLowerCase())
+        );
+    };
+    const maxPage = () => Math.max(1, Math.ceil(filteredTasks().length / 5));
     const start = () => (page() - 1) * 5;
 
     const displayedTask = () => {
-        return props.tasks.slice(start(), start() + 5);
-    }
+        return filteredTasks().slice(start(), start() + 5);
+    };
 
     return (
         <>
             <div id="search-container">
-                <input type="text" id="search-input" placeholder="Search by title" />
+                <input 
+                    type="text" 
+                    id="search-input" 
+                    placeholder="Search by title"
+                    value={search()}
+                    onInput={(e) => {
+                        setSearch(e.target.value);
+                        setPage(1);
+                    }} 
+                />
             </div>
 
             <div id="table-container">
