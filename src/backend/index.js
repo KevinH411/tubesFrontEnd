@@ -65,10 +65,10 @@ app.get("/api/todo/:id", (req, res) => {
     return res.json(userTodo)
 });
 
-app.delete("/api/todo/:taskId", (req, res) => {
-    const taskId = Number(req.params.taskId);
+app.delete("/api/todo/:id", (req, res) => {
+    const id = Number(req.params.id);
     //cek jika ToDo ada
-    const todoIndex = todos.findIndex(t => t.taskId === taskId);
+    const todoIndex = todos.findIndex(t => t.id === id);
 
     if (todoIndex === -1) {
         return res.status(404).json({ message: "Task not found" });
