@@ -52,8 +52,8 @@ export async function addTodo(userId, title, description, dueDate) {
         return await res.json();
 }
 
-export async function deleteTodo(taskId) { //fungsi untuk hapus ToDo
-    const res = await fetch(`${URL}/todo/${taskId}`, {
+export async function deleteTodo(id) { //fungsi untuk hapus ToDo
+    const res = await fetch(`${URL}/todo/${id}`, {
         method: "DELETE"
     });
 
