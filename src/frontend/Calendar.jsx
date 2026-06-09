@@ -21,6 +21,10 @@ export default () => {
     const [user, setUser] = createSignal(null);
     const [tasks, setTasks] = createSignal([]);
 
+    const [isPopupOpen, setIsPopupOpen] = createSignal(false);
+    const [selectedTasks, setSelectedTasks] = createSignal([]);
+    const [popupDate, setPopupDate] = createSignal("");
+
     onMount(async () => {
         const storedUser = localStorage.getItem("currentUser");
 
@@ -32,8 +36,6 @@ export default () => {
                 try {
                     const userTasks = await getTodoList(parsedUser.id);
                     setTasks(userTasks || []);
-
-                    setCurrentDate(d => new Date(d));
                 } catch (err) {
                     alert(err.message);
                 }
@@ -67,6 +69,14 @@ export default () => {
     const handlePrevMonth = () => setCurrentDate(subMonths(currentDate(), 1));
     const handleNextMonth = () => setCurrentDate(addMonths(currentDate(), 1));
 
+    const handleDayClick = (dateString, dayTasksArray) => {
+        if (dayTasksArray.length > 0) {
+            setPopupDate(dateString);
+            setSelectedTasks(dayTasksArray);
+            setIsPopupOpen(true);
+        }
+    };
+
     return (
         <Show when={user()}>
             <main class="calendar-main">
@@ -90,22 +100,18 @@ export default () => {
                     <div class="days-grid">
                         <For each={calendarDays()}>
                             {(day) => {
-                                const isCurrentMonth = isSameMonth(
-                                    day,
-                                    monthStart()
-                                );
-
+                                const isCurrentMonth = isSameMonth(day, monthStart());
                                 const dayString = format(day, "d");
-
                                 const isActiveDay = isToday(day);
-
                                 const currentFormattedDate = format(day, "yyyy-MM-dd");
 
-                                const hasTask = isCurrentMonth && tasks().some(t => {
+                                const dayTasks = () => tasks().filter(t => {
                                     if (!t.dueDate) return false;
                                     const taskDate = t.dueDate.split("T")[0];
                                     return taskDate === currentFormattedDate;
                                 });
+
+                                const hasTask = () => isCurrentMonth && dayTasks().length > 0;
 
                                 return (
                                     <div
@@ -113,6 +119,7 @@ export default () => {
                                         classList={{
                                             active: isActiveDay,
                                             "outside-month": !isCurrentMonth,
+                                            "clickable-day": hasTask()
                                         }}
                                         style={{
                                             opacity: (() => {
@@ -123,6 +130,7 @@ export default () => {
                                                 }
                                             })(),
                                         }}
+                                        onClick={() => isCurrentMonth && handleDayClick(currentFormattedDate, dayTasks())}
                                     >
                                         <span
                                             class={`day-number ${(() => {
@@ -136,7 +144,7 @@ export default () => {
                                             {dayString}
                                         </span>
 
-                                        {hasTask && (
+                                        {hasTask() && (
                                             <div class="task-dot"></div>
                                         )}
                                     </div>
@@ -145,6 +153,29 @@ export default () => {
                         </For>
                     </div>
                 </div>
+
+                {/* Pop-Up Modal */}
+                <Show when={isPopupOpen()}>
+                    <div class="calendar-popup-overlay" onClick={() => setIsPopupOpen(false)}>
+                        <div class="calendar-popup-content" onClick={(e) => e.stopPropagation()}>
+                            <div class="popup-header">
+                                <h3>Deadline: {popupDate()}</h3>
+                                <button class="close-icon" onClick={() => setIsPopupOpen(false)}>&times;</button>
+                            </div>
+                            
+                            <div class="popup-task-list">
+                                <For each={selectedTasks()}>
+                                    {(t) => (
+                                        <div class="popup-task-item">
+                                            <h4 class="popup-task-title">{t.title}</h4>
+                                            <p class="popup-task-desc">{t.description}</p>
+                                        </div>
+                                    )}
+                                </For>
+                            </div>
+                        </div>
+                    </div>
+                </Show>
             </main>
         </Show>
     );
