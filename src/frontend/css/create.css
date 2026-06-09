@@ -34,12 +34,12 @@ p {
     text-align: right;
 }
 
-input {
+#create-form input {
     padding: 15px;
     margin: 20px;
 }
 
-form {
+#create-form {
     display: flex;
     flex-direction: column;
     align-items: center;
