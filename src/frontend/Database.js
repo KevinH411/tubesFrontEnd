@@ -51,3 +51,15 @@ export async function addTodo(title, description, dueDate) {
         }
         return await res.json();
 }
+
+export async function deleteTodo(taskId) { //fungsi untuk hapus ToDo
+    const res = await fetch(`${URL}/todo/${taskId}`, {
+        method: "DELETE"
+    });
+
+    if (!res.ok) {
+        throw new Error("Failed deleting todo");
+    }
+
+    return await res.json();
+}
