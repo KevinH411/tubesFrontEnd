@@ -38,6 +38,14 @@ const TrashIcon = () => (
 );
 
 function TableContent(props) {
+    const [page, setPage] = createSignal(1);
+    const maxPage = () => Math.max(1, Math.ceil(props.tasks.length / 5));
+    const start = () => (page() - 1) * 5;
+
+    const displayedTask = () => {
+        return props.tasks.slice(start(), start() + 5);
+    }
+
     return (
         <>
             <div id="search-container">
@@ -57,7 +65,7 @@ function TableContent(props) {
                     </thead>
 
                     <tbody>
-                        <For each={props.tasks} fallback={
+                        <For each={displayedTask()} fallback={
                             <tr>
                                 <td colspan="5" style={{ "text-align": "center" }}>No tasks found. Add a new one!</td>
                             </tr>
@@ -69,7 +77,7 @@ function TableContent(props) {
 
                                 return (
                                     <tr>
-                                        <td>{index() + 1}</td>
+                                        <td>{start() + index() + 1}</td>
                                         <td>{task.title}</td>
                                         <td>{task.description}</td>
                                         <td>{formattedDate}</td>
@@ -87,7 +95,7 @@ function TableContent(props) {
             </div>
 
             <div id="table-button">
-                <button id="prev-button">
+                <button id="prev-button" classList={{ disabled: page() === 1 }} onClick={() => setPage(p => Math.max(1, p - 1))}>
                     <svg
                         width="32"
                         height="32"
@@ -98,7 +106,7 @@ function TableContent(props) {
                     </svg>
                 </button>
 
-                <button id="next-button">
+                <button id="next-button" classList={{ disabled: page() === maxPage() }} onClick={() => setPage(p => Math.max(1, p + 1))}>
                     <svg
                         width="32"
                         height="32"
