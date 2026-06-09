@@ -97,7 +97,7 @@ function TableContent(props) {
                                         <td>{task.description}</td>
                                         <td>{formattedDate}</td>
                                         <td>
-                                            <button onClick={() => props.onDelete(task.taskId)}>
+                                            <button onClick={() => props.onDelete(task.id)}>
                                                 <TrashIcon />
                                             </button>
                                         </td>
@@ -143,15 +143,13 @@ export default () => {
     const [user, setUser] = createSignal(null);
     const [tasks, setTasks] = createSignal([]);
 
-    const handleDelete = async (taskId) => {
+    const handleDelete = async (id) => {
         const confirmDelete = confirm("Are you sure you want to delete this task?");
         if (!confirmDelete) return;
 
         try {
-            // Hapus di backend (.json)
-            await deleteTodo(taskId);
-            // Hapus di frontend (tampilan langsung update otomatis)
-            setTasks(tasks().filter(task => task.taskId !== taskId));
+            await deleteTodo(id);
+            setTasks(tasks().filter(task => task.id !== id));
         } catch (err) {
             alert(err.message);
         }
