@@ -65,6 +65,28 @@ app.get("/api/todo/:id", (req, res) => {
     return res.json(userTodo)
 });
 
+app.delete("/api/todo/:taskId", (req, res) => {
+    const taskId = Number(req.params.taskId);
+    //cek jika ToDo ada
+    const todoIndex = todos.findIndex(t => t.taskId === taskId);
+
+    if (todoIndex === -1) {
+        return res.status(404).json({ message: "Task not found" });
+    }
+
+    todos.splice(todoIndex, 1);
+
+    try {
+        fs.writeFileSync(
+            path.resolve(__dirname, 'todo.json'), 
+            JSON.stringify(todos, null, 2)
+        );
+        return res.status(200).json({ message: "Todo deleted successfully" });
+    } catch (err) {
+        return res.status(500).json({ message: "Failed to update database file" });
+    }
+});
+
 app.listen(8080, () => {
     console.log('Listening...');
 });
