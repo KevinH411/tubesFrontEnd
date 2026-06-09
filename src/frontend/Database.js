@@ -1,4 +1,4 @@
-const URL = "http://localhost:8080/api";
+const URL = "http://localhost:8081/api";
 
 export async function login(email, password) {
     const res = await fetch(`${URL}/login`, {
@@ -40,11 +40,11 @@ export async function getTodoList(id) {
     return await res.json();
 }
 
-export async function addTodo(title, description, dueDate) {
+export async function addTodo(userId, title, description, dueDate) {
     const res = await fetch(`${URL}/todo`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, description, dueDate })
+        body: JSON.stringify({userId, title, description, dueDate })
     });
         if (!res.ok) {
             throw new Error("Failed adding todo");

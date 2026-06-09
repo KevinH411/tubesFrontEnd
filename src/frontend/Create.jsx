@@ -22,7 +22,7 @@ export default function Create() { //:P
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await addTodo(title(), description(), dueDate());
+            await addTodo(currentUser.id, title(), description(), dueDate());
             navigate("/");
         } catch (error) {
             console.error("Error adding todo:", error);
