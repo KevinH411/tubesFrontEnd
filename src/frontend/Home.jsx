@@ -55,15 +55,15 @@ function TableContent(props) {
     return (
         <>
             <div id="search-container">
-                <input 
-                    type="text" 
-                    id="search-input" 
+                <input
+                    type="text"
+                    id="search-input"
                     placeholder="Search by title"
                     value={search()}
                     onInput={(e) => {
                         setSearch(e.target.value);
                         setPage(1);
-                    }} 
+                    }}
                 />
             </div>
 
@@ -183,8 +183,8 @@ export default () => {
             <Header />
             <div id="upper-home">
                 <div id="home-navigation">
-                    <A href="/">Table</A>
-                    <A href="/Calendar">Calendar</A>
+                    <A href="/" classList={{activated: location.pathname === "/"}}>Table</A>
+                    <A href="/Calendar" classList={{activated: location.pathname === "/Calendar"}}>Calendar</A>
                 </div>
 
                 <A id="create-button" href='/Create'>Add a new Task</A>

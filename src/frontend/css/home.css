@@ -15,24 +15,17 @@
     gap: 30px;
 }
 
-#home-navigation A {
+#home-navigation a {
     text-decoration: none;
 
     font-family: 'Poppins', sans-serif;
     font-size: 20px;
-    font-weight: 600;
+    font-weight: 600;   
     margin: 0 0 10px 0;
 
     color: #808080;
 
     cursor: pointer;
-}
-
-#home-navigation A:first-child {
-    color: black;
-
-    text-decoration: underline;
-    text-underline-offset: 6px;
 }
 
 #create-button {
@@ -163,4 +156,10 @@
 button.disabled {
     opacity: 0.3;
     pointer-events: none;
+}
+
+#home-navigation a.activated {
+    color: black;
+    text-decoration: underline;
+    text-underline-offset: 6px;
 }
