@@ -35,37 +35,43 @@ export default function Create() { //:P
             <div class="body">
                 <h1>Create A New Task</h1>
                 <form onSubmit={handleSubmit}>
-                <div class="container">
-                    <div id="p">
-                        <p>Title</p>
-                        <p>Description</p>
-                        <p>Deadline</p>
+                    <div class="container">
+                        <div id="p">
+                            <p>Title</p>
+                            <p>Description</p>
+                            <p>Deadline</p>
+                        </div>
+
+                        <div id="inputs">
+                            <input type="text"
+                                placeholder="Task title.."
+                                onInput={(e) => setTitle(e.target.value)}
+                                value={title()}
+                                required
+                            />
+                            <input type="text"
+                                placeholder="Task description.."
+                                onInput={(e) => setDescription(e.target.value)}
+                                value={description()}
+                                required
+                            />
+                            <input type="date"
+                                onInput={(e) => setDueDate(e.target.value)}
+                                value={dueDate()}
+                                required
+                            />
+                        </div>
                     </div>
 
-                    <div id="inputs">
-                        <input type="text" 
-                            placeholder="Task title.."
-                            onInput={(e) => setTitle(e.target.value)} 
-                            value={title()}
-                            required
-                        />
-                        <input type="text" 
-                            placeholder="Task description.."
-                            onInput={(e) => setDescription(e.target.value)} 
-                            value={description()} 
-                            required                          
-                         />
-                        <input type="date" 
-                            onInput={(e) => setDueDate(e.target.value)} 
-                            value={dueDate()}
-                            required
-                         />
+                    <div class="button-row">
+                        <button type="button" class="cancel-btn" onClick={() => navigate("/")}>
+                            Cancel
+                        </button>
+                        <button type="submit" class="create-task-btn">
+                            Create Task
+                        </button>
                     </div>
-                </div>
-                    <button type="submit" class="create-task-btn">
-                        Create Task
-                    </button>
-                
+
                 </form>
             </div>
         </>

@@ -1,11 +1,12 @@
 .body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 60px;
-  font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 60px;
+    font-family: sans-serif;
 }
-.container{
+
+.container {
     display: grid;
     grid-template-columns: 50px 500px;
     gap: 30px;
@@ -17,41 +18,63 @@
 
 #p {
     display: flex;
-    align-items:center;
+    align-items: center;
     flex-direction: column;
 }
+
 #inputs {
     display: flex;
     flex-direction: column;
 }
 
-.create-task-btn {
-    margin-top: 10px;
-    padding: 15px;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 20px;
-    text-align: center;
-    background: linear-gradient(
-        90deg,
-        #F58A3A,
-        #B14DFF
-    );
-    box-shadow: 0px 4px 2px #F58A3A;
-    color: white;
-    text-decoration: none;
-    width: 600px;
-
-}
-
-p{
+p {
     font-weight: bold;
     font-size: 20px;
     margin: 35px;
     text-align: right;
 }
+
 input {
     padding: 15px;
     margin: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.button-row {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    width: 600px;
+}
+
+.cancel-btn,
+.create-task-btn {
+    flex: 1;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.create-task-btn {
+    background: linear-gradient(90deg, #F58A3A, #B14DFF);
+    box-shadow: 0px 4px 2px #F58A3A;
+    color: white;
+}
+
+.cancel-btn {
+    background: #f7b5b5;
+    color: #7a1f1f;
+}
+
+.cancel-btn:hover,
+.create-task-btn:hover {
+    scale: 110%;
 }
