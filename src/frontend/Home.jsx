@@ -3,7 +3,7 @@ import { A, useLocation, useNavigate } from "@solidjs/router";
 import Header from "./Header";
 import "./css/home.css";
 import Calendar from "./Calendar";
-import { getTodoList } from "./Database";
+import { getTodoList, deleteTodo } from "./Database";
 
 const TrashIcon = () => (
     <svg
@@ -38,11 +38,6 @@ const TrashIcon = () => (
 );
 
 function TableContent(props) {
-
-    const handleDelete = (taskId) => {
-        setTasks(tasks().filter(task => task.taskId !== taskId));
-    };
-
     return (
         <>
             <div id="search-container">
@@ -79,7 +74,7 @@ function TableContent(props) {
                                         <td>{task.description}</td>
                                         <td>{formattedDate}</td>
                                         <td>
-                                            <button onClick={() => handleDelete(task.taskId)}>
+                                            <button onClick={() => props.onDelete(task.taskId)}>
                                                 <TrashIcon />
                                             </button>
                                         </td>
@@ -125,6 +120,20 @@ export default () => {
     const [user, setUser] = createSignal(null);
     const [tasks, setTasks] = createSignal([]);
 
+    const handleDelete = async (taskId) => {
+        const confirmDelete = confirm("Are you sure you want to delete this task?");
+        if (!confirmDelete) return;
+
+        try {
+            // Hapus di backend (.json)
+            await deleteTodo(taskId);
+            // Hapus di frontend (tampilan langsung update otomatis)
+            setTasks(tasks().filter(task => task.taskId !== taskId));
+        } catch (err) {
+            alert(err.message);
+        }
+    };
+
     onMount(async () => {
         const storedUser = localStorage.getItem("currentUser");
 
@@ -162,8 +171,7 @@ export default () => {
 
             <div id="home-content">
                 <Show when={location.pathname === "/"}>
-
-                    <TableContent tasks={tasks()} />
+                    <TableContent tasks={tasks()} onDelete={handleDelete} />
                 </Show>
 
                 <Show when={location.pathname === "/Calendar"}>
