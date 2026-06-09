@@ -50,8 +50,8 @@ app.post("/api/signup", (req, res) => {
 });
 
 app.post("/api/todo", (req, res) => {
-    const {title, description, dueDate} = req.body;
-    const newTodo = { id: todos.length + 1, id: users.length+1, title, description, dueDate };
+    const {userId, title, description, dueDate} = req.body;
+    const newTodo = { id: todos.length + 1, userId, title, description, dueDate };
     todos.push(newTodo);
     fs.writeFileSync(path.resolve(__dirname, 'todo.json'), JSON.stringify(todos));
     return res.status(201).json({ message: "Todo created successfully" });
@@ -87,6 +87,6 @@ app.delete("/api/todo/:taskId", (req, res) => {
     }
 });
 
-app.listen(8080, () => {
+app.listen(8081, () => {
     console.log('Listening...');
 });
